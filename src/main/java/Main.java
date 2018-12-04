@@ -1,14 +1,14 @@
-import Crawlers.BasicWebCrawler;
+import Crawlers.PrimePeopleWebCrawler;
 
 public class Main {
 
     private static final String html = "http://primepeople.no/ledige-stillinger/";
 
     public static void main(String[] args) {
-        BasicWebCrawler basicWebCrawler = new BasicWebCrawler();
-        basicWebCrawler.getPageTableRows(html);
+        PrimePeopleWebCrawler primePeopleWebCrawler = new PrimePeopleWebCrawler();
+        primePeopleWebCrawler.getPageTableRows(html);
 
-        for(Object object: basicWebCrawler.getPositionJSONArray()){
+        for(Object object: primePeopleWebCrawler.getPositionJSONArray()){
             System.out.println(object);
         }
 

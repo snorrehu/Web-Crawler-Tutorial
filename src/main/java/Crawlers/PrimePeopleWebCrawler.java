@@ -11,12 +11,12 @@ import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 
 
-public class BasicWebCrawler {
+public class PrimePeopleWebCrawler {
     private HashSet<String> links;
     private JSONArray positionJSONArray;
     private JSONObject positionJSONObject;
 
-    public BasicWebCrawler() {
+    public PrimePeopleWebCrawler() {
         links = new HashSet<String>();
         positionJSONArray = new JSONArray();
         positionJSONObject = new JSONObject();
