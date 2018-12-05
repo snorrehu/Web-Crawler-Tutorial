@@ -20,8 +20,11 @@ public class Main {
 
         //Adecco
         AdeccoWebCrawler adeccoWebCrawler = new AdeccoWebCrawler();
-        adeccoWebCrawler.getPageLinks();
+        /*adeccoWebCrawler.getPageLinks();
         adeccoWebCrawler.getPageTableRows();
+        for(Object object: adeccoWebCrawler.getPositionJSONArray()){
+            System.out.println(object);
+        }*/
 
     }
 
