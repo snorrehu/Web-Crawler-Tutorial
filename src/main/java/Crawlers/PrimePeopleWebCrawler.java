@@ -6,27 +6,26 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashSet;
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 
 
 public class PrimePeopleWebCrawler {
-    private HashSet<String> links;
+    private ArrayList<String> links;
     private JSONArray positionJSONArray;
-    private JSONObject positionJSONObject;
 
     public PrimePeopleWebCrawler() {
-        links = new HashSet<String>();
+        links = new ArrayList<String>();
         positionJSONArray = new JSONArray();
-        positionJSONObject = new JSONObject();
     }
 
-    public HashSet<String> getLinks() {
+    public ArrayList<String> getLinks() {
         return links;
     }
 
-    public void setLinks(HashSet<String> links) {
+    public void setLinks(ArrayList<String> links) {
         this.links = links;
     }
 
@@ -38,15 +37,7 @@ public class PrimePeopleWebCrawler {
         this.positionJSONArray = positionJSONArray;
     }
 
-    public JSONObject getPositionJSONObject() {
-        return positionJSONObject;
-    }
-
-    public void setPositionJSONObject(JSONObject positionJSONObject) {
-        this.positionJSONObject = positionJSONObject;
-    }
-
-    public void getPageInfo(String URL) {
+    public void getPageInfo(String URL, JSONObject positionJSONObject) {
         //4. Check if you have already crawled the URLs
         //(we are intentionally not checking for duplicate content in this example)
         if (!links.contains(URL)) {
@@ -66,10 +57,10 @@ public class PrimePeopleWebCrawler {
                 String current = "";
                 for (Element next : tableRowsOnPage) {
                     if (current.contains("Stillingstype")){
-                        this.positionJSONObject.put("position_type",next.text());
+                        positionJSONObject.put("position_type",next.text());
                     }
                     else if (current.contains("Antall stillinger")){
-                        this.positionJSONObject.put("number_of_positions",next.text().trim());
+                        positionJSONObject.put("number_of_positions",next.text().trim());
                     }
                     current = next.text().trim();
                 }
@@ -80,6 +71,7 @@ public class PrimePeopleWebCrawler {
     }
 
     public void getPageTableRows(String URL) {
+        JSONObject positionJSONObject = new JSONObject();
         //4. Check if you have already crawled the URLs
         //(we are intentionally not checking for duplicate content in this example)
         if (!links.contains(URL)) {
@@ -103,17 +95,17 @@ public class PrimePeopleWebCrawler {
                     Elements workplaces = tableRow.getElementsByClass("location");
                     //5. Parse every position ("data-value") and link
                     for(Element position: positions){
-                        this.positionJSONObject.put("position",position.attr("data-value"));
-                        getPageInfo(position.getElementsByTag("a").attr("href"));
+                        positionJSONObject.put("position",position.attr("data-value"));
+                        getPageInfo(position.getElementsByTag("a").attr("href"),positionJSONObject);
                     }
                     for (Element company : companys) {
-                        this.positionJSONObject.put("company",company.attr("data-value"));
+                        positionJSONObject.put("company",company.attr("data-value"));
                     }
                     for (Element workplace : workplaces) {
-                        this.positionJSONObject.put("location",workplace.attr("data-value"));
+                        positionJSONObject.put("location",workplace.attr("data-value"));
                     }
-                    if(!this.positionJSONObject.isEmpty()){
-                        this.positionJSONArray.add(this.positionJSONObject);
+                    if(!positionJSONObject.isEmpty()){
+                        this.positionJSONArray.add(positionJSONObject);
                     }
 
                 }

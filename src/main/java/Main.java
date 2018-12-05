@@ -1,3 +1,4 @@
+import Crawlers.AdeccoWebCrawler;
 import Crawlers.PrimePeopleWebCrawler;
 
 
@@ -7,7 +8,6 @@ public class Main {
 
     public static void main(String[] args) {
         startCrawl();
-
     }
 
     public static void startCrawl(){
@@ -17,5 +17,12 @@ public class Main {
         for(Object object: primePeopleWebCrawler.getPositionJSONArray()){
             System.out.println(object);
         }
+
+        //Adecco
+        AdeccoWebCrawler adeccoWebCrawler = new AdeccoWebCrawler();
+        adeccoWebCrawler.getPageLinks();
+        adeccoWebCrawler.getPageTableRows();
+
     }
+
 }

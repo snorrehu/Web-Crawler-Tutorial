@@ -88,11 +88,5 @@ public class AdeccoWebCrawler {
 
     }
 
-    public static void main(String[] args) {
-        AdeccoWebCrawler adecco = new AdeccoWebCrawler();
-        adecco.getPageLinks();
-        adecco.getPageTableRows();
-
-    }
 }
 
