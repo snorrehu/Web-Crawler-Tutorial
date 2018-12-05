@@ -103,17 +103,21 @@ public class PrimePeopleWebCrawler {
                     }
                     for (Element workplace : workplaces) {
                         positionJSONObject.put("location",workplace.attr("data-value"));
-                    }
-                    if(!positionJSONObject.isEmpty()){
-                        this.positionJSONArray.add(positionJSONObject);
+                        if(!positionJSONObject.isEmpty()){
+                            this.positionJSONArray.add(positionJSONObject);
+                        }
+                        positionJSONObject = new JSONObject();
                     }
 
+
                 }
+
 
             } catch (IOException e) {
                 System.err.println("For '" + URL + "': " + e.getMessage());
             }
         }
+
     }
 
 }
